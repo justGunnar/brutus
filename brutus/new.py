@@ -48,7 +48,7 @@ class GuzzlrClassifier:
         if downscale_denominator:
             df = DataFrame(rows[0:len(rows)/downscale_denominator])
         else:
-            df DataFrame(rows)
+            df = DataFrame(rows)
 
         self._strings = df['text'].values
         self._labels  = df['labels'].values

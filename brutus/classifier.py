@@ -37,9 +37,16 @@ from sklearn.model_selection         import KFold
 ###########################
 parser = argparse.ArgumentParser()
 parser.add_argument(
+    '-t',
+    '--test_set',
+    help='name of the file that contains the test strings',
+    type=str,
+    required=True
+)
+parser.add_argument(
     '-l',
     '--label_set',
-    help='brands OR catalog_items; the set of labels to match items against',
+    help='name of the file that contains the labels',
     type=str,
     required=True
 )
@@ -75,11 +82,11 @@ args = vars(parser.parse_args())
 #
 ###########################
 rows = []
-with open('items') as items, open(args['label_set']) as catalog_items:
-    for item, catalog_item in izip(items, catalog_items):
+with open('../training_data/' + args['test_set']) as test_set, open('../training_data/' + args['label_set']) as label_set:
+    for test, label in izip(test_set, label_set):
         rows.append({
-            'text': item.rstrip(),
-            'class': catalog_item.rstrip()
+            'text': test.rstrip(),
+            'class': label.rstrip()
         })
 
 if args['full']:
@@ -140,6 +147,3 @@ else:
     vars.update(locals())
     shell = code.InteractiveConsole(vars)
     shell.interact()
-
-    # prediction example:
-    # pipeline.predict(['SKYY VODKA 750mL', 'MACALLAN 12yr'])
