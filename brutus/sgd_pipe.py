@@ -16,14 +16,14 @@ from sklearn.linear_model            import SGDClassifier
 from sklearn.pipeline                import Pipeline
 from sklearn.model_selection         import KFold
 
-class GuzzlrClassifier:
+class SGDPipe:
 
     def __init__(self, text_file, labels_file, downscale_denominator = False):
-        df = _build_data_frame(text_file, labels_file, downscale_denominator)
-        self._pipeline = _build_pipeline(df)
+        df = self._build_data_frame(text_file, labels_file, downscale_denominator)
+        self._pipeline = self._build_pipeline(df)
 
-    def classify(strings):
-        """Predict the lable of a set of strings
+    def classify(self, strings):
+        """Predict the label of a set of strings
 
         strings -- array of strings to classify
         """
@@ -36,7 +36,6 @@ class GuzzlrClassifier:
         labels_file           -- the text file to use as labels
         downscale_denominator -- what we'd like to divide the dataset length by
         """
-
         rows = []
         with open(text_file) as text, open(labels_file) as labels:
             for string, label in izip(text, labels):
@@ -56,7 +55,7 @@ class GuzzlrClassifier:
         return df.reindex(numpy.random.permutation(df.index))
 
 
-    def _build_pipeline(data_frame):
+    def _build_pipeline(self, data_frame):
         """Build and return the classification pipeline
 
         data_frame -- the data to build the classifier with
@@ -67,7 +66,7 @@ class GuzzlrClassifier:
             ('classifier', SGDClassifier())
         ])
 
-        pipeline.fit(data['text'].values, data['class'].values)
+        pipeline.fit(data_frame['text'].values, data_frame['labels'].values)
 
         return pipeline
 
