@@ -3,6 +3,8 @@
 # Yogi
 #
 ###########################
+import json
+
 from flask    import Flask
 from sgd_pipe import SGDPipe
 
@@ -15,14 +17,13 @@ print 'building brand pipeline'
 brand_pipeline = SGDPipe(
     '../training_data/items',
     '../training_data/brands',
-    500
+    50
 )
 
 print 'building wine pipeline'
 wine_pipeline  = SGDPipe(
     '../training_data/wines',
-    '../training_data/wine_categories',
-    100
+    '../training_data/wine_categories'
 )
 
 ###########################
@@ -36,9 +37,17 @@ app = Flask('yogi')
 def home():
     return 'This is the homepage.'
 
+
 @app.route('/brand/<to_predict>', methods=['GET'])
 def brand(to_predict):
     return brand_pipeline.classify([to_predict])[0]
+
+@app.route('/brands', methods=['GET'])
+def brands():
+    brands      = brand_pipeline._labels
+    uniq_brands = set(brands) # uniq!
+    return json.dumps(list(uniq_brands))
+
 
 @app.route('/wine_category/<to_predict>', methods=['GET'])
 def wine_category(to_predict):
