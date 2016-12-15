@@ -17,7 +17,7 @@ print 'building brand pipeline'
 brand_pipeline = SGDPipe(
     '../training_data/items',
     '../training_data/brands',
-    50
+    200
 )
 
 print 'building wine pipeline'
@@ -25,6 +25,8 @@ wine_pipeline  = SGDPipe(
     '../training_data/wines',
     '../training_data/wine_categories'
 )
+
+print 'ready'
 
 ###########################
 #
