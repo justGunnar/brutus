@@ -1,7 +1,5 @@
 ###########################
 #
-# Introducing: Brutus
-#
 # This is a first pass script that builds a
 # Stochastic Gradient Descent estimator. It leverages
 # a count vectorizer, and a term frequency-inverse document
