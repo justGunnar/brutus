@@ -20,6 +20,12 @@ brand_pipeline = SGDPipe(
     200
 )
 
+print 'building beer pipeline'
+beer_pipeline  = SGDPipe(
+    'training_data/beers',
+    'training_data/beer_categories'
+)
+
 print 'building wine pipeline'
 wine_pipeline  = SGDPipe(
     'training_data/wines',
@@ -54,6 +60,10 @@ def brands():
     brands      = brand_pipeline._labels
     uniq_brands = set(brands) # uniq!
     return json.dumps(list(uniq_brands))
+
+@app.route('/wine_category/<to_predict>', methods=['GET'])
+def beer_category(to_predict):
+    return beer_pipeline.classify([to_predict])[0]
 
 @app.route('/wine_category/<to_predict>', methods=['GET'])
 def wine_category(to_predict):
