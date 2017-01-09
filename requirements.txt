@@ -2,12 +2,16 @@ click==6.6
 Flask==0.11.1
 gunicorn==19.6.0
 itsdangerous==0.24
+jellyfish==0.5.6
 Jinja2==2.8
 MarkupSafe==0.23
+MySQL-python==1.2.5
+nltk==3.2.2
 numpy==1.11.2
 pandas==0.19.1
 python-dateutil==2.6.0
 pytz==2016.7
+recordlinkage==0.7.2
 scikit-learn==0.18.1
 scipy==0.18.1
 six==1.10.0
