@@ -5,38 +5,28 @@
 ###########################
 import json
 
-from flask    import Flask
-from sgd_pipe import SGDPipe
+from flask             import Flask
+from lib.sgd_pipe      import SGDPipe
+from sklearn.externals import joblib
+
 
 ###########################
 #
 # Startup
 #
 ###########################
-print 'building brand pipeline'
-brand_pipeline = SGDPipe(
-    'training_data/items',
-    'training_data/brands',
-    200
-)
+pkl_jar_path = 'pkl_jar/'
+print 'loading brand pipeline'
+brand_pipeline = joblib.load(pkl_jar_path + 'brand_pipeline.pkl')
 
-print 'building beer pipeline'
-beer_pipeline  = SGDPipe(
-    'training_data/beers',
-    'training_data/beer_categories'
-)
+print 'loading beer pipeline'
+beer_pipeline = joblib.load(pkl_jar_path + 'beer_pipeline.pkl')
 
-print 'building wine pipeline'
-wine_pipeline  = SGDPipe(
-    'training_data/wines',
-    'training_data/wine_categories'
-)
+print 'loading wine pipeline'
+wine_pipeline = joblib.load(pkl_jar_path + 'wine_pipeline.pkl')
 
-print 'building liquor pipeline'
-liquor_pipeline  = SGDPipe(
-    'training_data/liquors',
-    'training_data/liquor_categories'
-)
+print 'loading liquor pipeline'
+liquor_pipeline = joblib.load(pkl_jar_path + 'liquor_pipeline.pkl')
 
 print 'ready'
 
@@ -61,7 +51,7 @@ def brands():
     uniq_brands = set(brands) # uniq!
     return json.dumps(list(uniq_brands))
 
-@app.route('/wine_category/<to_predict>', methods=['GET'])
+@app.route('/beer_category/<to_predict>', methods=['GET'])
 def beer_category(to_predict):
     return beer_pipeline.classify([to_predict])[0]
 
