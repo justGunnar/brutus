@@ -22,12 +22,18 @@ class SGDPipe:
         df = self._build_data_frame(text_file, labels_file, downscale_denominator)
         self._pipeline = self._build_pipeline(df)
 
-    def classify(self, strings):
+    def classify(self, strings, include_meta_data = False):
         """Predict the label of a set of strings
 
         strings -- array of strings to classify
         """
-        return self._pipeline.predict(strings)
+        if include_meta_data:
+            probabilities = self._pipeline.predict_proba(strings)
+            worst_to_best = numpy.argsort(probabilities, axis=1)
+            best_index = worst_to_best[0][-1]
+            return (self._pipeline.classes_[best_index], probabilities[0][best_index])
+        else:
+            return self._pipeline.predict(strings)
 
     def _build_data_frame(self, text_file, labels_file, downscale_denominator):
         """Build and return a data frame
@@ -63,7 +69,7 @@ class SGDPipe:
         pipeline = Pipeline([
             ('vectorizer', CountVectorizer(ngram_range=(1, 2))),
             ('tfidf_transformer', TfidfTransformer()),
-            ('classifier', SGDClassifier())
+            ('classifier', SGDClassifier(loss='modified_huber'))
         ])
 
         pipeline.fit(data_frame['text'].values, data_frame['labels'].values)
