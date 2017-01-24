@@ -5,10 +5,9 @@
 ###########################
 import json
 
-from flask             import Flask
-from lib.sgd_pipe      import SGDPipe
-from sklearn.externals import joblib
-
+from flask               import Flask
+from yogi_utils.sgd_pipe import SGDPipe
+from sklearn.externals   import joblib
 
 ###########################
 #

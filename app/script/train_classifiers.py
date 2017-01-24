@@ -1,5 +1,5 @@
-from yogi.sgd_pipe      import SGDPipe
-from sklearn.externals import joblib
+from yogi_utils.sgd_pipe import SGDPipe
+from sklearn.externals   import joblib
 
 training_data_path = '../training_data/'
 
