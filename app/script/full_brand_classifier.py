@@ -9,7 +9,8 @@ print 'building brand pipeline'
 start = time.time()
 brand_pipeline = SGDPipe(
     training_data_path + 'items',
-    training_data_path + 'brands'
+    training_data_path + 'brands',
+    use_random_forest=True
 )
 end = time.time()
 joblib.dump(brand_pipeline, '../pkl_jar/full_brand_pipeline.pkl')

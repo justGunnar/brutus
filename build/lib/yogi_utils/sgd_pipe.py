@@ -16,11 +16,13 @@ from sklearn.linear_model            import SGDClassifier
 from sklearn.pipeline                import Pipeline
 from sklearn.model_selection         import KFold
 
+from sklearn.ensemble import RandomForestClassifier
+
 class SGDPipe:
 
-    def __init__(self, text_file, labels_file, downscale_denominator = False):
+    def __init__(self, text_file, labels_file, downscale_denominator = False, use_random_forest = False):
         df = self._build_data_frame(text_file, labels_file, downscale_denominator)
-        self._pipeline = self._build_pipeline(df)
+        self._pipeline = self._build_pipeline(df, use_random_forest)
 
     def classify(self, strings, include_meta_data = False):
         """Predict the label of a set of strings
@@ -61,16 +63,23 @@ class SGDPipe:
         return df.reindex(numpy.random.permutation(df.index))
 
 
-    def _build_pipeline(self, data_frame):
+    def _build_pipeline(self, data_frame, use_random_forest):
         """Build and return the classification pipeline
 
         data_frame -- the data to build the classifier with
         """
-        pipeline = Pipeline([
-            ('vectorizer', CountVectorizer(ngram_range=(1, 2))),
-            ('tfidf_transformer', TfidfTransformer()),
-            ('classifier', SGDClassifier(loss='modified_huber'))
-        ])
+        if use_random_forest:
+            pipeline = Pipeline([
+                ('vectorizer', CountVectorizer(ngram_range=(1, 2))),
+                ('tfidf_transformer', TfidfTransformer()),
+                ('classifier', RandomForestClassifier(n_jobs=-1))
+            ])
+        else:
+            pipeline = Pipeline([
+                ('vectorizer', CountVectorizer(ngram_range=(1, 2))),
+                ('tfidf_transformer', TfidfTransformer()),
+                ('classifier', SGDClassifier(n_jobs=-1))
+            ])
 
         pipeline.fit(data_frame['text'].values, data_frame['labels'].values)
 
