@@ -14,7 +14,7 @@ from sklearn.externals   import joblib
 # Startup
 #
 ###########################
-pkl_jar_path = 'pkl_jar/'
+pkl_jar_path = 'pkl-jar/'
 print 'loading brand pipeline'
 brand_pipeline = joblib.load(pkl_jar_path + 'brand_pipeline.pkl')
 
