@@ -103,7 +103,7 @@ data = data.reindex(numpy.random.permutation(data.index))
 pipeline = Pipeline([
     ('vectorizer', CountVectorizer(ngram_range=(1, 2))),
     ('tfidf_transformer', TfidfTransformer()),
-    ('classifier', SGDClassifier())
+    ('classifier', SGDClassifier(n_jobs=-1))
 ])
 
 if args['validate']:

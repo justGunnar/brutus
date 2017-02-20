@@ -27,13 +27,13 @@ wine_brand_pipeline = joblib.load(pkl_jar_path + 'wine_brand_pipeline.pkl')
 print 'loading liquor brand pipeline'
 liquor_brand_pipeline = joblib.load(pkl_jar_path + 'liquor_brand_pipeline.pkl')
 
-print 'loading beer pipeline'
+print 'loading beer leaf category pipeline'
 beer_pipeline = joblib.load(pkl_jar_path + 'beer_pipeline.pkl')
 
-print 'loading wine pipeline'
+print 'loading wine leaf category pipeline'
 wine_pipeline = joblib.load(pkl_jar_path + 'wine_pipeline.pkl')
 
-print 'loading liquor pipeline'
+print 'loading liquor leaf category pipeline'
 liquor_pipeline = joblib.load(pkl_jar_path + 'liquor_pipeline.pkl')
 
 print 'ready'
