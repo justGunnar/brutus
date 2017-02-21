@@ -49,31 +49,31 @@ app = Flask('yogi')
 def home():
     return 'This is the homepage.'
 
-@app.route('/top_level_category/<to_predict>', methods=['GET'])
+@app.route('/top_level_category/<path:to_predict>', methods=['GET'])
 def top_level_category(to_predict):
     return top_level_category_pipeline.classify([to_predict])[0]
 
-@app.route('/beer_brand/<to_predict>', methods=['GET'])
+@app.route('/beer_brand/<path:to_predict>', methods=['GET'])
 def beer_brand(to_predict):
     return beer_brand_pipeline.classify([to_predict])[0]
 
-@app.route('/wine_brand/<to_predict>', methods=['GET'])
+@app.route('/wine_brand/<path:to_predict>', methods=['GET'])
 def wine_brand(to_predict):
     return wine_brand_pipeline.classify([to_predict])[0]
 
-@app.route('/liquor_brand/<to_predict>', methods=['GET'])
+@app.route('/liquor_brand/<path:to_predict>', methods=['GET'])
 def liquor_brand(to_predict):
     return liquor_brand_pipeline.classify([to_predict])[0]
 
-@app.route('/beer_category/<to_predict>', methods=['GET'])
+@app.route('/beer_category/<path:to_predict>', methods=['GET'])
 def beer_category(to_predict):
     return beer_pipeline.classify([to_predict])[0]
 
-@app.route('/wine_category/<to_predict>', methods=['GET'])
+@app.route('/wine_category/<path:to_predict>', methods=['GET'])
 def wine_category(to_predict):
     return wine_pipeline.classify([to_predict])[0]
 
-@app.route('/liquor_category/<to_predict>', methods=['GET'])
+@app.route('/liquor_category/<path:to_predict>', methods=['GET'])
 def liquor_category(to_predict):
     return liquor_pipeline.classify([to_predict])[0]
 
