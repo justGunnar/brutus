@@ -77,8 +77,6 @@ def wine_category(to_predict):
 def liquor_category(to_predict):
     return liquor_pipeline.classify([to_predict])[0]
 
-@app.route('/brands', methods=['GET'])
-def brands():
-    brands      = brand_pipeline._labels
-    uniq_brands = set(brands) # uniq!
-    return json.dumps(list(uniq_brands))
+@app.errorhandler(404)
+def page_not_found(e):
+    return ''
