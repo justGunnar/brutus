@@ -1,4 +1,4 @@
 venv
 *.pyc
 *.pkl
-app/training_data
+app/training_data/*
