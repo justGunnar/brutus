@@ -1,3 +1,4 @@
 venv
 *.pyc
-app/pkl_jar
+*.pkl
+app/training_data
